@@ -4,19 +4,22 @@ function StartGame() {
     // Start game
     gameArea.start();
 
+    background = new component(gameArea.canvas.width, gameArea.canvas.height,
+        "src/game/background.png", 0, 0);
+        
     // Create player
-    player = new component(30, 30, "blue", (gameArea.canvas.width - 30) / 2, 380);
+    player = new component(30, 30, "src/game/player.png", (gameArea.canvas.width - 30) / 2, 380);
 
     // Create 3 meteors
     for (let i = 0; i < 3; i++) {
-        var meteor = new component(30, 30, "brown", Math.random() * (gameArea.canvas.width - 30), 0);
+        var meteor = new component(30, 30, "src/game/meteor.png", Math.random() * (gameArea.canvas.width - 30), 0);
         meteor.speedY = Math.random() * 20;
         meteors.push(meteor);
     }
 }
 
 // Game System 
-var player, meteors = [], score = 0;
+var background, player, meteors = [], score = 0;
 
 // Canvas
 var gameArea = {
@@ -52,7 +55,10 @@ var gameArea = {
 function component(width, height, color, x, y) {
     this.width = width;
     this.height = height;
-    this.color = color;
+
+    this.image = new Image();
+    this.image.src = color;
+
     this.speedX = 0;
     this.speedY = 0;
     this.x = x;
@@ -60,8 +66,7 @@ function component(width, height, color, x, y) {
 
     this.update = function() {
         ctx = gameArea.context;
-        ctx.fillStyle = color;
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
     }
 
     this.newPos = function() {
@@ -132,6 +137,10 @@ function updateFrame() {
     // Player border
     if (player.x > (gameArea.canvas.width - player.width)) { player.x = 0; }
     else if (player.x < 0) { player.x = gameArea.canvas.width - player.width; }
+
+    // Update background
+    background.newPos();
+    background.update();
 
     // Meteor movement
     for (let i = 0; i < meteors.length; i++) {
