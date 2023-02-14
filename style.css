@@ -1,0 +1,55 @@
+/* #283593 - Dark Blue 800 */
+
+* {
+    margin: 0;
+}
+
+canvas {
+    display: block;
+}
+
+#game-section {
+    position: relative;
+}
+
+#game-overlay {
+    background-color: black;
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 244px;
+    height: 430px;
+}
+
+#game-overlay button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#game-overlay h3 {
+    color: whitesmoke;
+
+    margin-top: 40%;
+
+    text-align: center;
+}
+
+#button-start {
+    background-color: #283593;  
+    color: white;
+
+    border-radius: .5em;
+
+    padding: 1em;
+    transition: .3s;
+}
+
+#button-start:hover {
+    background-color: #303F9F;
+    transition: .3s;
+}
